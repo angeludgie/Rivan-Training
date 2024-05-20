@@ -381,7 +381,7 @@ config t
 dial-peer voice 69 voip
  service rivanaa out-bound
  destination-pattern 4269
- session target ipv4:10.12.100.8
+ session target ipv4:10.42.100.8
  incoming called-number 4269
  dtmf-relay h245-alphanumeric
  codec g711ulaw
