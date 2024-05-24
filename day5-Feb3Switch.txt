@@ -122,11 +122,11 @@ indicator no.3: Kislap every 1/2 seconds
 TASK6: HOW TO GET FIRED IMMEDIATELY!
 @baba:
 config t
- spanning-tree vlan 1
+ no spanning-tree vlan 1
 end
 @taas:
 config t
-spanning-tree vlan 1
+ no spanning-tree vlan 1
 end
 
 TASK7: HOW TO BECOME A WORLD-CLASS NETWORK ENGINEER
@@ -135,7 +135,7 @@ Master the 4 super Hereos of Switching
 Qpid: 802.1Q:trunking
 "make switch love each other!"LQ
 Darna: 802.1d: STP
-"slowly protect switches"
+"slowly protect switches with love and mercy"
 WonderWoman: 802.1w: rapidSTP
 "quickly,Brutally protect switches"
 SuperMan: 802.1s: MiSTP
@@ -159,12 +159,12 @@ wireshark = bridge priority is 32768 = very Hackable!
 " bobo/inutil ang Network Engineer nyo sa company!"
 Protect the Most Important SWitch in your 
 Office: RootBridge = TAAS, 2ndRootBridge = BABA:
-TAAS:/d1       32786 --> 24576
+CoreTAAS & D1       32786 --> 24576
 Config t
 spanning-tree mode pvst
 spanning-tree vlan 1-100 root Primary
 do sh spanning-tree vlan 1
-BABA:/d2         32768->   28672
+CoreBABA & D2         32768->   28672
 Config t              
 spanning-tree mode pvst
 spanning-tree vlan 1-100 root Secondary
@@ -177,9 +177,9 @@ Blk - LIS - LRN -FWD
       15s   15s     = 30s
 
 Task9.2: STP Port Roles: 
-DesignatedPort/DP = fwd port of Root Bridge
-RootPort/RP = fwd port of non-root Bridge(1 only)
-AlternatePort/AP = blk port of nonRootPorts
+DesignatedPort/DP = fwd port of Root Bridge ----- Ako ang boss
+RootPort/RP = fwd port of non-root Bridge(1 only) ----- yes, boss
+AlternatePort/AP = blk port of nonRootPorts ----- mamatay ka sana. Im next, boss
 BackupPort = yuck yuck
 
 how becomes RootPort = kanangKamay
@@ -216,10 +216,10 @@ end
 #sh int status err-disabled 
 TAAS: bounce/UP/down
 config t
-int fa 0/1
+int fa 0/3
  shut
  no shut
-int fa 0/5
+int fa 0/7
  shut
  no shut
 end
@@ -339,7 +339,7 @@ config t
 hostname PLDTITO
 Track 1 Int gi 0/1 line-protocol
 Int vlan 1
-standby 1 ip 10.__.1.6
+standby 1 ip 10.42.1.6
 standby 1 preempt
 standby 1 Priority 150
 standby 1 Track 1 decrement 60
@@ -348,7 +348,7 @@ standby 1 Track 1 decrement 60
 config t
 hostname GLOBE
 Int vlan 1
-standby 1 ip 10.__.1.6
+standby 1 ip 10.42.1.6
 standby 1 preempt
 standby 1 Priority 100
 do sh standby
@@ -419,8 +419,13 @@ int e0/3
  swi tru encap Dot1Q
  swi mode trunk
 
-D1 = root primary
-d2 = root secondary
+D1 = root primary:
+config t
+spanning-tree vlan 1-100 root primary
+d2 = root secondary:
+config t
+spanning-tree vlan 1-100 root secondary
+
 
 homelab: VTP:
 d1/d2:
@@ -439,7 +444,7 @@ vtp mode Client
 vtp version 2
 exit
 
-real world FHRP:
+real world FHRP: firstHOpRP: hrsp, vrrp, glbp
 d1:
 config t
 Track 10 Int E1/1 line-protocol
